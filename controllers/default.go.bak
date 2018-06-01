@@ -1,0 +1,46 @@
+package controllers
+
+import (
+	"github.com/astaxie/beego"
+)
+
+type MainController struct {
+	beego.Controller
+}
+
+func (c *MainController) Get() {
+	//----------------简单模版的使用-----------------
+	// 最简单的字段赋值法
+	c.Data["Website"] = "beego.me"
+	c.Data["Email"] = "smallcc@smallcc.com"
+	//条件判断（只能为 true 或 false，默认为 false）
+	c.Data["TrueCond"] = true
+	c.Data["FlaseCone"] = false
+
+	type u struct {
+		Name string
+		Age  int
+		Sex  string
+	}
+	user := &u{
+		Name: "Tom",
+		Age:  20,
+		Sex:  "男",
+	}
+	//这是结构体 集合  嵌套输出 - with
+	c.Data["User"] = user
+	//循环
+	a := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	c.Data["A"] = a
+
+	/* =============== 高级的模板使用 ===================*/
+	// 通过模板变量传递值
+	c.Data["TplVal"] = "hey bbQ"
+	//内置的模版函数
+	c.Data["Html"] = "<div>hello beego</div>"
+
+	c.Data["Pipe"] = "<div>gogogogogogo</div>"
+	//模版地址
+	c.TplName = "index.tpl"
+
+}
